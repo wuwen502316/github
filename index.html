@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+	<meta charset="utf-8" />
+	<link rel="icon" href="./img/1.jpg" />
+	<title>DOM</title>
+	<link rel="stylesheet" type="text/css" href="./css/pbulic.css" />
+	<link rel="stylesheet" type="text/css" href="./css/element.css" />
+	<link rel="stylesheet" type="text/css" href="./css/index.css" />
+	<link rel="stylesheet" type="text/css" href="./css/button.css" />
+</head>
+
+<body>
+	<noscript>您的浏览器不支持script,请更换浏览器</noscript>
+	<div id="app">
+		<div class="el-container">
+			<aside class="el-aside aside">
+				<div class="hidden_scroll">
+					<div class="navMenu"></div>
+				</div>
+			</aside>
+			<div class="el-container is-vertical">
+				<div class="el-header flexd-height is-center--parent" style="position: relative">
+					<div class="is-center--child header--title">
+						<span>header</span>
+					</div>
+					<div class="el-header-item right dropdown-trigger">
+						<div title="切换主题">
+							<i class="cloth--content">
+								<svg t="1625561290162" class="icon" viewBox="0 0 1117 1024" version="1.1" p-id="3119"
+									width="20" height="20">
+									<path class="icons"
+										d="M824.450212 1022.47992H293.508317a124.273745 124.273745 0 0 1-88.40612-36.877981 126.799634 126.799634 0 0 1-35.867625-88.911298l3.536245-353.624478a50.517783 50.517783 0 0 0-14.14498-34.85727 50.517783 50.517783 0 0 0-34.352092-14.144979A124.273745 124.273745 0 0 1 0 370.800524V227.330022a123.768567 123.768567 0 0 1 68.199007-110.633944l202.07113-101.035565A125.284101 125.284101 0 0 1 367.26428 6.567312a126.799634 126.799634 0 0 1 73.250784 65.673117A125.284101 125.284101 0 0 0 555.695609 136.903191h22.227824a118.716789 118.716789 0 0 0 98.509676-63.652406 126.294457 126.294457 0 0 1 74.766318-65.673118 121.747856 121.747856 0 0 1 94.973432 6.567312l202.07113 103.561454a123.26339 123.26339 0 0 1 67.693829 110.633944v143.470503a124.273745 124.273745 0 0 1-123.768568 124.273745 50.517783 50.517783 0 0 0-34.85727 14.144979 47.486716 47.486716 0 0 0-13.639801 34.85727l3.031067 353.624479a123.26339 123.26339 0 0 1-124.273745 125.2841z m-242.485356-75.776674h242.485356a50.517783 50.517783 0 0 0 34.85727-14.144979 46.47636 46.47636 0 0 0 13.639801-34.352092l-3.031067-353.624479a121.242678 121.242678 0 0 1 35.867626-88.406119 122.758212 122.758212 0 0 1 88.40612-36.877981 50.517783 50.517783 0 0 0 47.991893-50.517783V228.340377a50.517783 50.517783 0 0 0-26.269247-42.940115l-202.07113-101.035565a50.517783 50.517783 0 0 0-36.877982-2.525889 50.517783 50.517783 0 0 0-29.300313 26.774425c-57.590272 120.7375-199.040063 107.602877-205.102198 107.097699h-8.082845a191.967574 191.967574 0 0 1-160.646549-106.087344 50.517783 50.517783 0 0 0-29.805491-26.774425 50.517783 50.517783 0 0 0-36.372804 2.52589L101.035565 184.389907a50.517783 50.517783 0 0 0-26.269247 42.940115v143.470502a50.517783 50.517783 0 0 0 50.517783 50.517783 124.273745 124.273745 0 0 1 124.273745 125.284101l-3.536245 353.624478a50.517783 50.517783 0 0 0 50.517783 50.517783h288.456539z"
+										fill="#20002A" p-id="3120"></path>
+								</svg>
+							</i>
+						</div>
+					</div>
+					<div role="dropdown">
+						<ul role="dropdown--menu" is-extend="false" class="change-cloth hidden">
+							<li role="menuitem" class="dropdown--menuitem dropdown--menuitem-selected" cId="#000000">
+								<span>亮色菜单风格</span>
+							</li>
+							<li class="dropdown-menuitem-divider"></li>
+							<li role="menuitem" class="dropdown--menuitem" cId="#999999">
+								<span>暗色菜单风格</span>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<main class="el-main is-center-parent" style="
+							border-top: 1px #000000 solid;
+							border-bottom: 1px #000000 solid;
+							background-color: #fafafa;
+						">
+					<div class="btns-conllection">
+						<button rtype="info" role="btn" class="btn_type el-button--info el-button">
+							<span>消息</span>
+						</button>
+						<button rtype="error" role="btn" class="btn_type el-button--error el-button">
+							<span>错误</span>
+						</button>
+						<button rtype="success" role="btn" class="btn_type el-button--success el-button">
+							<span>成功</span>
+						</button>
+						<button rtype="warning" role="btn" class="btn_type el-button--warning el-button">
+							<span>警告</span>
+						</button>
+						<button rtype="danger" role="change" class="el-button--default el-button is-showClose">
+							<span>可关闭</span>
+						</button>
+						<button rtype="danger" role="change" class="el-btn-change el-button">
+							<span>message</span>
+						</button>
+						<button role="confirm" class="el-button">
+							<span>dialog</span>
+						</button>
+					</div>
+				</main>
+				<div class="el-footer flexd-height is-center--flex">
+					<span class="is-center-child">footer</span>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>
+<script src="./js/module/tools.js" type="module" charset="utf-8"></script>
+<!-- <script type="module" src="./js/module/api.js"></script> -->
+<script src="./js/index.js" type="text/javascript" charset="utf-8"></script>
+<script src="./js/route.js" type="text/javascript" charset="utf-8"></script>

@@ -1,0 +1,279 @@
+html,
+body {
+	width: 100%;
+	height: 100%;
+}
+
+/* hover事件 */
+.el-menu-item:hover {
+	background-color: #ecf5ff;
+}
+
+/* 固定高度header or footer */
+.flexd-height {
+	height: 60px;
+}
+
+#app,
+#app .el-container {
+	height: 100%;
+}
+
+/* aside侧边栏及menuNav */
+.aside.el-aside {
+	min-width: 200px;
+	width: 200px;
+	border-right: 1px #000000 solid;
+	box-sizing: content-box;
+	-moz-user-select: none;
+	/*火狐*/
+	-webkit-user-select: none;
+	/*webkit浏览器*/
+	-ms-user-select: none;
+	/*IE10*/
+	-khtml-user-select: none;
+	/*早期浏览器*/
+	user-select: none;
+}
+
+.aside.el-aside .hidden_scroll {
+	height: 100%;
+	min-width: 200px;
+	overflow: hidden;
+}
+
+.aside.el-aside .hidden_scroll .navMenu {
+	height: 100%;
+	width: 217px;
+	overflow-y: scroll;
+	overflow-x: hidden;
+}
+
+.aside ul[role="menu"] {
+	overflow: hidden;
+}
+
+.aside .el-submenu .el-submenu__title {
+	padding-left: 20px;
+	position: relative;
+}
+
+/* el-menu-item-group */
+/* 仅google支持的滚动条自定义 */
+.aside > div::-webkit-scrollbar {
+	width: 6px;
+	background-color: transparent;
+}
+
+.aside:hover div::-webkit-scrollbar {
+	background-color: transparent;
+}
+
+.aside:hover div::-webkit-scrollbar-thumb {
+	background-color: #bfbabb;
+}
+
+.aside > div::-webkit-scrollbar-thumb {
+	background-color: transparent;
+}
+
+.el-header.flexd-height {
+	background-color: rgb(250, 250, 250);
+	box-shadow: rgba(0, 21, 41, 0.08) 0px 1px 4px 0px;
+}
+
+/* horizontal  Vertical 水平垂直居中*/
+.is-center--flex {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	/* position: relative; */
+}
+
+.is-center--parent {
+	position: inherit;
+}
+
+.is-center--child {
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
+}
+
+/* message or notify的同步上升动画时间 */
+.el-mssage-info-step-move {
+	transition: top 0.1s;
+}
+
+/* .el-menu-transform {
+	transition: all 3s;
+} */
+/* .el-menu-item:focus,
+.el-menu-item:hover {
+	outline: none;
+	background-color: #ecf5ff
+} */
+.aside-menu-fade-in {
+	animation: menu-item-fade-in 0.3s;
+}
+
+.aside-menu-fade-out {
+	animation: menu-item-fade-out 0.3s;
+}
+
+@keyframes menu-item-fade-out {
+	0% {
+		height: 0px;
+		opacity: 0;
+	}
+}
+
+@keyframes menu-item-fade-in {
+	/* from{
+		height: 260px;
+		opacity: 1;
+	} */
+	to {
+		height: 0px;
+		opacity: 0;
+	}
+}
+
+/* 点击侧边栏时的li高度动画过渡 */
+/* .el-submenu{
+	height: 56px;
+}
+.el-submenu-transform {
+	transition: all 10s;
+} */
+
+/* arrow箭头的初始位置及角度设置 */
+/* .arrow {
+	position: absolute;
+	left: 160px;
+	top: 0;
+	bottom: 0;
+	margin: auto;
+} */
+.arrow {
+	position: absolute;
+	left: 0;
+	top: 0;
+	bottom: 0;
+	margin: auto;
+}
+
+/* 一级menu的arrow */
+.arrow.fristClass-menu-arrow {
+	width: 20px;
+	height: 20px;
+	left: 160px;
+}
+
+.arrow.fristClass-menu-arrow svg {
+	position: inherit;
+}
+
+/* 二级menuItem */
+.arrow.secondClass-menu-arrow {
+	left: 163px;
+	width: 14px;
+	height: 14px;
+}
+
+.arrow-roll-begining {
+	transform: rotate(90deg);
+	transition: transform 0.3s;
+}
+
+.arrow-roll-clicked {
+	transform: rotate(0);
+	transition: transform 0.3s;
+}
+
+li:hover .aside .el-submenu__title {
+	color: #32a6e3;
+}
+
+li:hover .el-submenu__title > i svg path {
+	fill: #32a6e3;
+}
+
+li:hover .el-submenu__title {
+	color: #32a6e3;
+}
+
+/*el-submenu__title #ecf5ff */
+
+/* header部分 */
+.el-header .el-header-item {
+	line-height: 60px;
+	/* padding: 0 20px; */
+	margin-right: 40px;
+}
+
+.is-center-child.header--title {
+	height: 100%;
+	line-height: 60px;
+	padding: 0 10px;
+}
+
+.el-header-item.right div[title] {
+	padding: 0 20px;
+}
+
+.el-header-item.dropdown-trigger:hover {
+	background-color: #bfbabb;
+	cursor: pointer;
+}
+
+/* dropdown change menuBackfroundColor */
+.change-cloth {
+	position: absolute;
+	top: 63px;
+	right: 20px;
+	z-index: 100;
+	background-color: #ffffff;
+	font-size: 13px;
+	line-height: 22px;
+	padding: 5px 0;
+	box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 8px 0px;
+}
+
+.dropdown--menuitem {
+	padding: 5px 12px;
+}
+
+/* div[role="dropdown--menu"]{
+	display: block;
+} */
+.dropdown--menuitem:hover {
+	cursor: pointer;
+	background-color: rgb(240, 245, 255);
+	/* color:#4368fa; */
+}
+
+.dropdown--menuitem-selected {
+	/* font-weight: 200; */
+	color: #4368fa;
+}
+
+.hidden {
+	display: none;
+}
+
+.show {
+	display: block;
+}
+
+.dropdown-menuitem-divider {
+	height: 1px;
+	background-color: #000000;
+	margin: 4px 0;
+}
+
+/* main */
+.el-main.is-center-parent {
+	user-select: none;
+}
