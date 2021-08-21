@@ -3,10 +3,10 @@
 
 
 let muneCreated = false;
-
 let muneList = document.querySelector(".navMenu");
-const callback = function(mutations){
-	mutations.forEach(function(mutation){
+
+const callback = function (mutations) {
+	mutations.forEach(function (mutation) {
 		console.log(mutation);
 	})
 	console.log(mutations);
@@ -16,18 +16,18 @@ const config = {
 	attributes: true
 }
 let observe = new MutationObserver(callback);
-observe.observe(muneList,config)
+observe.observe(muneList, config)
 let data = {
-	muneCreated:muneCreated,
-	muneList:muneList
+	muneCreated: muneCreated,
+	muneList: muneList
 }
 
-let store = new Proxy(data,{
-	set:function(target, key, receiver){
+let store = new Proxy(data, {
+	set: function (target, key, receiver) {
 		console.log(`${key}设置为${receiver}`);
 		return Reflect.set(target, key, receiver);
 	},
-	get:function(target, key, receiver){
+	get: function (target, key, receiver) {
 		console.log(`${key}被读取了`);
 		return Reflect.get(target, key, receiver);
 	}

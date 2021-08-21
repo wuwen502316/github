@@ -4,11 +4,6 @@ body {
 	height: 100%;
 }
 
-/* hover事件 */
-.el-menu-item:hover {
-	background-color: #ecf5ff;
-}
-
 /* 固定高度header or footer */
 .flexd-height {
 	height: 60px;
@@ -35,7 +30,107 @@ body {
 	/*早期浏览器*/
 	user-select: none;
 }
+/* dark:#001529;light:#fff */
+.aside.el-aside.light {
+	background-color: #ffffff;
+	animation: color-to-light 0.3s;
+}
+/* .aside.el-aside.dark * {
+	background-color: #001529;
+} */
+.aside.el-aside.dark li,
+.aside.el-aside.dark {
+	background-color: #001529;
+	animation: color-to-dark 0.3s;
+}
+/* aside的背景色过渡动画 */
+@keyframes color-to-light {
+	0% {
+		background-color: #001529;
+	}
+	100% {
+		background-color: #ffffff;
+	}
+}
 
+@keyframes color-to-dark {
+	0% {
+		background-color: #ffffff;
+	}
+	100% {
+		background-color: #001529;
+	}
+}
+
+.aside-menu-fade-in {
+	animation: menu-item-fade-in 0.3s;
+}
+
+.aside-menu-fade-out {
+	animation: menu-item-fade-out 0.3s;
+}
+
+@keyframes menu-item-fade-out {
+	0% {
+		height: 0px;
+		opacity: 0;
+	}
+}
+
+@keyframes menu-item-fade-in {
+	to {
+		height: 0px;
+		opacity: 0;
+	}
+}
+
+.aside.el-aside.light .el-submenu {
+	color: #001529;
+}
+
+.aside.el-aside.light li svg path {
+	fill: #001529;
+}
+
+.aside.el-aside.dark li {
+	color: rgb(199, 196, 196);
+}
+
+.aside.el-aside.dark li svg path {
+	fill: rgb(199, 196, 196);
+}
+/* hover事件 */
+.aside.el-aside.light li:hover svg path {
+	fill: #32a6e3;
+}
+
+.aside.el-aside.light li:hover .el-submenu__title {
+	color: #32a6e3;
+}
+
+.aside li:hover .el-submenu__title > i svg path {
+	fill: #32a6e3;
+}
+
+.aside li:hover .el-submenu__title {
+	color: #32a6e3;
+}
+
+.aside.dark li:hover .el-submenu__title > i svg path {
+	fill: #ffffff;
+}
+
+/* .aside.dark .el-submenu__title:hover, */
+.aside.dark li:hover .el-submenu__title {
+	color: #ffffff;
+	background-color: #001529;
+}
+
+.aside.dark li:hover {
+	background-color: #001529;
+	color: #ffffff;
+}
+/*  */
 .aside.el-aside .hidden_scroll {
 	height: 100%;
 	min-width: 200px;
@@ -54,6 +149,7 @@ body {
 }
 
 .aside .el-submenu .el-submenu__title {
+	color: inherit;
 	padding-left: 20px;
 	position: relative;
 }
@@ -114,31 +210,6 @@ body {
 	outline: none;
 	background-color: #ecf5ff
 } */
-.aside-menu-fade-in {
-	animation: menu-item-fade-in 0.3s;
-}
-
-.aside-menu-fade-out {
-	animation: menu-item-fade-out 0.3s;
-}
-
-@keyframes menu-item-fade-out {
-	0% {
-		height: 0px;
-		opacity: 0;
-	}
-}
-
-@keyframes menu-item-fade-in {
-	/* from{
-		height: 260px;
-		opacity: 1;
-	} */
-	to {
-		height: 0px;
-		opacity: 0;
-	}
-}
 
 /* 点击侧边栏时的li高度动画过渡 */
 /* .el-submenu{
@@ -192,19 +263,9 @@ body {
 	transition: transform 0.3s;
 }
 
-li:hover .aside .el-submenu__title {
+/* li:hover .aside .el-submenu__title {
 	color: #32a6e3;
-}
-
-li:hover .el-submenu__title > i svg path {
-	fill: #32a6e3;
-}
-
-li:hover .el-submenu__title {
-	color: #32a6e3;
-}
-
-/*el-submenu__title #ecf5ff */
+} */
 
 /* header部分 */
 .el-header .el-header-item {

@@ -1,4 +1,7 @@
 // let flag = true;
+
+
+
 window.onload = function () {
 	const tools = window.tools; //全局变量引入
 	window.is_show_close = true;
@@ -8,40 +11,45 @@ window.onload = function () {
 	const elBtnChange = document.querySelector(".el-btn-change"); //change innerHTML内容
 	const elBtnChangeSpan = document.querySelector(".el-btn-change>span"); //change innerHTML内容
 	const showCloseDiv = document.querySelector(".is-showClose");
+	const aside = document.querySelector(".aside.el-aside");
 	const showCloseSpan = document.querySelector(".is-showClose>span");
 	const dropdown = document.querySelector("ul[role='dropdown--menu']"); //dropdown(下拉菜单)的ul的li
 	const dropdowns = dropdown.querySelectorAll("li[role='menuitem']"); //dropdown(下拉菜单)的ul的li
-	const dropdownMenuitems = document.querySelectorAll(".dropdown--menuitem"); //dropdown下拉菜单的div
+	// const dropdownMenuitems = document.querySelectorAll(".dropdown--menuitem"); //dropdown下拉菜单的div
+
 	const animations = {//添加动画函数
-		menuItemFadeOut(options, ...argus) {
+		menuItemFadeOut(dom, options, ...argus) {
 			tools.handleAnimation({
 				animationName: "menu-item-fade-out",
-				rule: "to{height:260px;opacity:1;}",
+				rule: `to{height:${options};opacity:1;}`,
 				ruleName: "to"
 			}).addAnimation(() => { //回调
-				options.classList.add("aside-menu-fade-out");
-				options.style = ""
+				dom.classList.add("aside-menu-fade-out");
+				dom.style = ""
 			})
-			options.addEventListener("animationend", () => { //监听动画是否完成
-				options.classList.remove("aside-menu-fade-out");
-				options.style = ""
+			dom.addEventListener("animationend", () => { //监听动画是否完成
+				dom.classList.remove("aside-menu-fade-out");
+				dom.style = ""
 			}, false)
 		},
-		menuItemFadeIn(options, ...argus) {
+		menuItemFadeIn(dom, options, ...argus) {
 			tools.handleAnimation({
-				rule: "0%{height:210px;opacity:1;}",
+				rule: `0%{height:${options};opacity:1;}`,
 				animationName: "menu-item-fade-in",
 				ruleName: "from"
 			}).addAnimation(() => {
-				options.classList.add('aside-menu-fade-in');
+				dom.classList.add('aside-menu-fade-in');
 			})
-			options.addEventListener("animationend", () => {//监听动画是否完成
-				options.style.display = !argus[0] ? "block" : "none";
-				options.classList.remove("aside-menu-fade-in");
+			dom.addEventListener("animationend", () => {//监听动画是否完成
+				dom.style.display = !argus[0] ? "block" : "none";
+				dom.classList.remove("aside-menu-fade-in");
 			}, false)
 		}
 	}
-	const clickEvent = { //事件
+	const computed = function () {
+		console(...arguments);
+	}
+	const eventOperations = { //事件
 		dropdownTriggerClick(e) { //dropdown下拉菜单点击事件
 			// let e = e ? e : window.event;
 			let extend = dropdown.getAttribute("is-extend");
@@ -69,37 +77,52 @@ window.onload = function () {
 				dropdown.setAttribute("is-extend", !JSON.parse(extend));
 			}
 			return;
+		},
+		changeAsideColor(replaceName, _className) {//改变aside的背景色
+			tools.handleClass.replaceClass(aside, replaceName, _className);
 		}
 	}
-
+	// dark:#001529;light:#fff
+	dropdowns[0].addEventListener("click", (e) => {//frist-li
+		// const flag = e.currentTarget.children[0].innerHTML.includes("亮") ? true : false;
+		// if (flag) {
+		eventOperations.changeAsideColor("dark", "light");
+		// }
+	})
+	dropdowns[1].addEventListener("click", (e) => {//second-li
+		// const flag = e.currentTarget.children[0].innerHTML.includes("暗") ? true : false;
+		// if (flag) {
+		eventOperations.changeAsideColor("light", "dark");
+		// }
+	})
 	for (let i = 0; i < dropdowns.length; i++) {//为下拉菜单添加click事件
 		dropdowns[i].addEventListener("click", (e) => {
 			e.stopPropagation();//点击ul时阻止冒泡
 			let eTarget = null;
 			eTarget = e.currentTarget;//获取绑定事件的元素
 			if (!eTarget.className.includes("dropdown--menuitem-selected")) {
-				for (let i = 0; i < dropdownMenuitems.length; i++) {
-					if (dropdownMenuitems[i].className.includes("dropdown--menuitem-selected")) {
-						dropdownMenuitems[i].classList.remove("dropdown--menuitem-selected");
+				for (let i = 0; i < dropdowns.length; i++) {
+					if (dropdowns[i].className.includes("dropdown--menuitem-selected")) {
+						dropdowns[i].classList.remove("dropdown--menuitem-selected");
 					}
 				}
 				eTarget.classList.add("dropdown--menuitem-selected")
 			}
-			setTimeout(clickEvent.closeDropDownMenu, 100);
+			setTimeout(eventOperations.closeDropDownMenu, 100);
 		})
 	}
 	document.addEventListener('click', function () { //当ul:display:block时，点击其他地方隐藏ul
-		clickEvent.closeDropDownMenu();
+		eventOperations.closeDropDownMenu();
 	}, false);
 
 	dropdownTrigger.onclick = (e) => { //dropdown下拉菜单点击事件
-		clickEvent.dropdownTriggerClick(e);
+		eventOperations.dropdownTriggerClick(e);
 	}
 	elBtnChange.onclick = () => { //改变内的nitify or message
-		clickEvent.elBtnChangeClick();
+		eventOperations.elBtnChangeClick();
 	}
 	showCloseDiv.onclick = () => { //控制关闭按钮
-		clickEvent.isShowCloseBtn();
+		eventOperations.isShowCloseBtn();
 	}
 
 	(function btnClick() { //btn点击时的事件
@@ -164,7 +187,7 @@ window.onload = function () {
 					el.querySelector(".el-submenu__title").setAttribute("aria-expanded", true);
 					// li设置"aria-expanded"属性即li是展开状态
 					if (menu_inline) {
-						animations.menuItemFadeOut(menu_inline, flag);//调取animations有关的函数
+						animations.menuItemFadeOut(menu_inline, "260px", flag);//调取animations有关的函数
 					}
 					let svg = el.querySelector("div .arrow-roll-begining"); //svg2D变换
 					tools.handleClass.replaceClass(svg, "arrow-roll-begining", "arrow-roll-clicked");
@@ -176,7 +199,7 @@ window.onload = function () {
 					tools.handleClass.replaceClass(svg, "arrow-roll-clicked", "arrow-roll-begining");
 					tools.handleClass.removeClass(el, "is-opened el-submenu-transform arrow-roll-clicked");
 					if (menu_inline) {
-						animations.menuItemFadeIn(menu_inline, flag);
+						animations.menuItemFadeIn(menu_inline, "260px", flag);
 					}
 				}
 			}
