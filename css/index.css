@@ -236,19 +236,18 @@ body {
 }
 
 /* 一级menu的arrow */
-.arrow.fristClass-menu-arrow {
+.arrow.class-menu-arrow {
 	width: 20px;
 	height: 20px;
 	left: 160px;
 }
 
-.arrow.fristClass-menu-arrow svg {
+.arrow.class-menu-arrow svg {
 	position: inherit;
 }
 
 /* 二级menuItem */
-.arrow.secondClass-menu-arrow {
-	left: 163px;
+.el-menu-item-group .arrow.class-menu-arrow {
 	width: 14px;
 	height: 14px;
 }
@@ -259,7 +258,7 @@ body {
 }
 
 .arrow-roll-clicked {
-	transform: rotate(0);
+	transform: rotate(-90deg);
 	transition: transform 0.3s;
 }
 

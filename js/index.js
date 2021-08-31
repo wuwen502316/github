@@ -14,7 +14,7 @@ window.onload = function () {
 	const aside = document.querySelector(".aside.el-aside");
 	const showCloseSpan = document.querySelector(".is-showClose>span");
 	const dropdown = document.querySelector("ul[role='dropdown--menu']"); //dropdown(下拉菜单)的ul的li
-	const dropdowns = dropdown.querySelectorAll("li[role='menuitem']"); //dropdown(下拉菜单)的ul的li
+	const dropdowns = dropdown.querySelectorAll("li[role='dropdown--menuitem']"); //dropdown(下拉菜单)的ul的li
 	// const dropdownMenuitems = document.querySelectorAll(".dropdown--menuitem"); //dropdown下拉菜单的div
 
 	const animations = {//添加动画函数
