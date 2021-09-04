@@ -13,6 +13,7 @@ window.onload = function () {
 	const elBtnChangeSpan = document.querySelector(".el-btn-change>span"); //change innerHTML内容
 	const showCloseDiv = document.querySelector(".is-showClose");
 	const aside = document.querySelector(".aside.el-aside");
+	const navMenu = document.querySelector(".navMenu");
 	const showCloseSpan = document.querySelector(".is-showClose>span");
 	const dropdown = document.querySelector("ul[role='dropdown--menu']"); //dropdown(下拉菜单)的ul的li
 	const dropdowns = dropdown.querySelectorAll("li[role='dropdown--menuitem']"); //dropdown(下拉菜单)的ul的li
@@ -104,33 +105,25 @@ window.onload = function () {
 	}
 	// dark:#001529;light:#fff
 	dropdowns[0].addEventListener("click", (e) => {//frist-li
-		// const flag = e.currentTarget.children[0].innerHTML.includes("亮") ? true : false;
-		// if (flag) {
 		eventOperations.changeAsideColor("dark", "light");
-		// }
 	})
 	dropdowns[1].addEventListener("click", (e) => {//second-li
-		// const flag = e.currentTarget.children[0].innerHTML.includes("暗") ? true : false;
-		// if (flag) {
 		eventOperations.changeAsideColor("light", "dark");
-		// }
 	})
-	for (let i = 0; i < dropdowns.length; i++) {//为下拉菜单添加click事件
-		dropdowns[i].addEventListener("click", (e) => {
-			e.stopPropagation();//点击ul时阻止冒泡
+	dropdowns.forEach((dorpdownMenuItem) => {//为下拉菜单添加click事件
+		dorpdownMenuItem.addEventListener("click", (e) => {
 			let eTarget = null;
 			eTarget = e.currentTarget;//获取绑定事件的元素
-			if (!eTarget.className.includes("dropdown--menuitem-selected")) {
-				for (let i = 0; i < dropdowns.length; i++) {
-					if (dropdowns[i].className.includes("dropdown--menuitem-selected")) {
-						dropdowns[i].classList.remove("dropdown--menuitem-selected");
-					}
+			dropdowns.forEach((item) => {
+				if (item.className.includes("dropdown--menuitem-selected")) {
+					item.classList.remove("dropdown--menuitem-selected");
 				}
-				eTarget.classList.add("dropdown--menuitem-selected")
-			}
+			});
+			eTarget.classList.add("dropdown--menuitem-selected")
 			setTimeout(eventOperations.closeDropDownMenu, 100);
+			e.stopPropagation();//点击ul时阻止冒泡
 		})
-	}
+	})
 	document.addEventListener('click', function () { //当ul:display:block时，点击其他地方隐藏ul
 		eventOperations.closeDropDownMenu();
 	}, false);
@@ -146,18 +139,18 @@ window.onload = function () {
 	}
 
 	(function btnClick() { //btn点击时的事件
-		let btns = document.querySelectorAll(".btns-conllection >.el-button");
-		for (let i = 0; i < btns.length; i++) {
+		const btns = document.querySelectorAll(".btns-conllection >.el-button");
+		btns.forEach((btn) => {
 			// 如果btn的className不包含is-disabled并且验证btn是否满足role=btn属性
-			if (btns[i].className.indexOf("is-disabled") <= -1 && btns[i].getAttribute("role") === "btn") {
-				btns[i].onclick = e => { //绑定事件
+			const flag = btn.className.indexOf("is-disabled") <= -1 && btn.getAttribute("role") === "btn";
+			if (flag) {
+				btn.onclick = (e) => { //绑定事件
 					let type = null;
 					let message = null;
 					const methods = elBtnChangeSpan.innerHTML;
 					let el = e.currentTarget; //只能获取绑定对应元素的target
 					type = el.getAttribute("rtype");
 					message = el.children[0].innerHTML;
-
 					if (methods == "message") {
 						this.tools.$message({
 							type: type,
@@ -177,7 +170,7 @@ window.onload = function () {
 					}
 				}
 			}
-		}
+		})
 	}(window));
 	for (let i = 0; i < handleCancel.length; i++) {
 		handleCancel[i].onclick = () => {
@@ -238,12 +231,11 @@ window.onload = function () {
 		bindClickEvent() {
 			for (let i = 0; i < this.submenuTitle.length; i++) {
 				this.submenuTitle[i].onclick = (e) => {
-					e.stopPropagation();
 					let el = e.currentTarget.parentNode; //li 获取绑定click事件的dom节点(不同于e.target)
 					// console.log(el.querySelectorAll(".arrow.class-menu-arrow"));
-					// if (!el.getElementsByTagName("UL").length) {
-					// 	return
-					// }
+					if (!el.getElementsByTagName("UL").length) {
+						return
+					}
 					let flag = el.querySelector(".el-submenu__title").getAttribute("aria-expanded");
 					let menu_inline = el.querySelector(".el-menu.el-menu--inline");//li>div>ul
 					//当前节点下获取目标节点的属性
@@ -255,6 +247,7 @@ window.onload = function () {
 							animations.menuItemFadeOut(menu_inline, this.arr[i], flag);//调取animations有关的函数
 							this.ischangedOut = true;
 						}
+						this.arrowchangeFunction.out(el);
 					} else if (flag && !this.ischangedIn) {
 						el.querySelector(".el-submenu__title").removeAttribute("aria-expanded");
 						//li折叠时移除"aria-expanded"属性即表示不是展开状态
@@ -282,24 +275,28 @@ window.onload = function () {
 						}, animationsCallBackFunction._in(menu_inline), flag)
 						this.arrowchangeFunction.in(el);
 					}
+					e.stopPropagation();
 				}
 			}
 		}
 	}
 	let asideFun = new Aside();
 
-	let observerDomTree = (app) => {//监听dom树的变化
-		this.config = {
-			// attributes: true,//属性
-			childList: true,//子元素
-			subtree: true
+	//监听dom树的变化,目的是observe dom的变化(用户主动删除，js改变时)，及时更新height数据，防止执行animation时出现问题
+	let observerDomTree = (dom) => {
+		this.config = {//监听的配置
+			// attributes: true,//监视元素的属性值变更
+			childList: true,//监视目标节点（如果 subtree 为 true，则包含子孙节点）添加或删除新的子节点
+			subtree: true,//设为 true 以将监视范围扩展至目标节点整个节点树中的所有节点
+			//characterData: true,//监视指定目标节点或子节点树中节点所包含的字符数据的变化
+			//characterDataOldValue :true// 以在文本在受监视节点上发生更改时记录节点文本的先前值
 		}
-		this.callBack = (mutationsList, observer) => {
+		this.callBack = (mutationsList, observer) => {//当数值变化时，执行的function
 			asideFun.getAsidePerItemHeight()
-			console.log(mutationsList, "line-293")
 		}
-		const observer = new MutationObserver(this.callBack);
-		observer.observe(app, this.config)
+		const observer = new MutationObserver(this.callBack);//新建监听函数，并接收一个回调函数
+		// observe() 方法配置了 MutationObserver 对象的回调方法以开始接收与给定选项匹配的DOM变化的通知(dom节点,监听config配置)
+		observer.observe(dom, this.config)
 	}
-	observerDomTree(app)
+	observerDomTree(navMenu)
 }

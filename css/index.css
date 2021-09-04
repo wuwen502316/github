@@ -260,10 +260,9 @@ body {
 	height: 14px;
 }
 
-.el-menu-item-group div{
-	position:relative;
+.el-menu-item-group div {
+	position: relative;
 }
-
 .arrow-roll-begining {
 	transform: rotate(90deg);
 	transition: transform 0.3s;
@@ -289,6 +288,13 @@ body {
 	height: 100%;
 	line-height: 60px;
 	padding: 0 10px;
+}
+
+.header--title span a {
+	color: #000000;
+}
+.header--title span a:hover {
+	color: blue;
 }
 
 .el-header-item.right div[title] {

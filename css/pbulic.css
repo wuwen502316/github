@@ -1,70 +1,131 @@
-@charset "utf-8"; 
-a,abbr,acronym,address,applet,b,big,blockquote,body,caption,center,cite,code,dd,del,dfn,div,dl,dt,em,fieldset,font,form,h1,h2,h3,h4,h5,h6,html,i,iframe,img,
-ins,kbd,label,legend,li,object,ol,p,pre,q,s,samp,small,span,strike,strong,sub,sup,table,tbody,td,tfoot,th,head,tr,tt,u,ul,var { 
- margin: 0; 
- padding: 0; 
- border: 0; 
- outline: 0; 
- font-size: 100%; 
- vertical-align: baseline; 
- background: 0 0
- } 
+@charset "utf-8";
+a,
+abbr,
+acronym,
+address,
+applet,
+b,
+big,
+blockquote,
+body,
+caption,
+center,
+cite,
+code,
+dd,
+del,
+dfn,
+div,
+dl,
+dt,
+em,
+fieldset,
+font,
+form,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+html,
+i,
+iframe,
+img,
+ins,
+kbd,
+label,
+legend,
+li,
+object,
+ol,
+p,
+pre,
+q,
+s,
+samp,
+small,
+span,
+strike,
+strong,
+sub,
+sup,
+table,
+tbody,
+td,
+tfoot,
+th,
+head,
+tr,
+tt,
+u,
+ul,
+var {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	outline: 0;
+	font-size: 100%;
+	vertical-align: baseline;
+	background: 0 0;
+}
 
-body { 
- line-height: 1
- } 
+body {
+	line-height: 1;
+}
 
-li,ol,
-ul { 
- list-style: none
- } 
+li,
+ol,
+ul {
+	list-style: none;
+}
 
 blockquote,
-q { 
- quotes: none
- } 
+q {
+	quotes: none;
+}
 
 blockquote:after,
 blockquote:before,
 q:after,
-q:before { 
- content: ''; 
- content: none
- } 
+q:before {
+	content: "";
+	content: none;
+}
 
-:focus { 
- outline: 0
- } 
+:focus {
+	outline: 0;
+}
 
-ins { 
- text-decoration: none
- } 
+ins {
+	text-decoration: none;
+}
 
-del { 
- text-decoration: line-through
- } 
+del {
+	text-decoration: line-through;
+}
 
-table { 
- border-collapse: collapse; 
- border-spacing: 0
- } 
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
 
-a { 
- text-decoration: none; 
- color: #fff
- } 
+a {
+	text-decoration: none;
+	color: #000;
+}
 
-body { 
- font-family: Kreon; 
- font-weight: 300; 
- color: #333; 
- background: #fff
- } 
+body {
+	font-family: Kreon;
+	font-weight: 300;
+	color: #333;
+	background: #fff;
+}
 
-.left { 
- float: left
- } 
+.left {
+	float: left;
+}
 
-.right { 
- float: right
- } 
+.right {
+	float: right;
+}
