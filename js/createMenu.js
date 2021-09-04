@@ -11,6 +11,22 @@ import aisdeData from "./module/tools/units/aisdeData.js";
 import asideData from "./module/tools/units/aisdeData.js";
 const explanatoryNote = "<!---->";
 const attrbute = asideData.data.attrbute;
+
+function isEmpty(obj) {
+	// 检验 undefined 和 null
+	if (!obj && obj !== 0 && obj !== '') {
+
+		return true;
+	}
+	if (Array.prototype.isPrototypeOf(obj) && obj.length === 0) {
+		return true;
+	}
+	if (Object.prototype.isPrototypeOf(obj) && Object.keys(obj).length === 0) {
+		return true;
+	}
+	return false;
+}
+
 function DetailNavList() {
 	this.config = null;
 	this.navList = null;
@@ -55,7 +71,7 @@ DetailNavList.prototype = {
 	createSecondClassNavUlLiItem(optionsItem, flag) {
 		const html1 =
 			`<div class="el-menu-item-group__title" style="padding-left:${20 + optionsItem.classNav * 5}px;
-				${(() => { if (flag) { return "position:relative" } })()}">
+				 "position:relative">
 				
 			${(() => {
 				if (optionsItem.navName && optionsItem.childrens) {
@@ -93,15 +109,18 @@ DetailNavList.prototype = {
 		for (let item = 0; item < len; item++) {
 			let optionsItem = options[item];
 			let flag = false;
-			if (optionsItem.childrens) {//判断是否有子元素
+			if (!isEmpty(optionsItem.childrens)) {//判断是否有子元素
 				flag = true;
 				html = `<li class="el-menu-item-group">
 				${this.createSecondClassNavUlLiItem(optionsItem, flag)}
 				${this.createThirdClassNavUl(optionsItem, flag)}</li>`
-				HTML_2 += html;
 			} else {
-				return explanatoryNote;
+				flag = false;
+				html = `<li class="el-menu-item-group">
+				${this.createSecondClassNavUlLiItem(optionsItem, flag)}
+				${this.createThirdClassNavUl(optionsItem, flag)}</li>`
 			}
+			HTML_2 += html;
 		}
 		return HTML_2
 	},
@@ -208,7 +227,7 @@ ${this.SecondClassNav(parms[i])}
 		let htmlclips = "";
 		if (parms.childrens || parms.childrens === []) {
 			htmlclips = `
-	< ul role = "menu" class="el-menu el-menu--inline" style = "display: none;" >
+	< ul role = "menu" class="el-menu el-menu--inline" style = "display: none;"ids=1 >
 		${this.initIcon(parms.icon)}
 			</ >
 	`

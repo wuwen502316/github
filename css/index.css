@@ -33,7 +33,7 @@ body {
 /* dark:#001529;light:#fff */
 .aside.el-aside.light {
 	background-color: #ffffff;
-	animation: color-to-light 0.3s;
+	/* animation: color-to-light .3s; */
 }
 /* .aside.el-aside.dark * {
 	background-color: #001529;
@@ -41,7 +41,7 @@ body {
 .aside.el-aside.dark li,
 .aside.el-aside.dark {
 	background-color: #001529;
-	animation: color-to-dark 0.3s;
+	/* animation: color-to-dark .3s; */
 }
 /* aside的背景色过渡动画 */
 @keyframes color-to-light {
@@ -64,10 +64,12 @@ body {
 
 .aside-menu-fade-in {
 	animation: menu-item-fade-in 0.3s;
+	/* animation: menu-item-fade-in 5s; */
 }
 
 .aside-menu-fade-out {
 	animation: menu-item-fade-out 0.3s;
+	/* animation: menu-item-fade-out 5s; */
 }
 
 @keyframes menu-item-fade-out {
@@ -75,9 +77,15 @@ body {
 		height: 0px;
 		opacity: 0;
 	}
+	10% {
+		opacity: 0.85;
+	}
 }
 
 @keyframes menu-item-fade-in {
+	10% {
+		opacity: 0.85;
+	}
 	to {
 		height: 0px;
 		opacity: 0;
@@ -203,7 +211,7 @@ body {
 }
 
 /* .el-menu-transform {
-	transition: all 3s;
+	transition: all .3s;
 } */
 /* .el-menu-item:focus,
 .el-menu-item:hover {

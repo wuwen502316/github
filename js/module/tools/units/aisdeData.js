@@ -48,7 +48,7 @@ const asideData = {
 		navList: [{
 			navName: "导航一",//导航栏title
 			icon: "setting",
-			disabled: "false",
+			disabled: false,
 			classNav: 1,
 			childrens: [{//一级子栏
 				navName: "分组一",
@@ -75,7 +75,7 @@ const asideData = {
 		}, {
 			navName: "导航二",//导航栏title
 			icon: "position",
-			disabled: "false",
+			disabled: false,
 			classNav: 1,
 			childrens: [{//一级子栏
 				navName: "分组一",
@@ -104,11 +104,12 @@ const asideData = {
 			}, {
 				navName: "分组三",
 				classNav: 2,
+				childrens: []
 			}]
 		}, {
 			navName: "导航三",//导航栏title
 			icon: "user",
-			disabled: "false",
+			disabled: false,
 			classNav: 1,
 			childrens: [{//一级子栏
 				navName: "分组一",
@@ -128,12 +129,12 @@ const asideData = {
 		}, {
 			navName: "导航四",//导航栏title
 			icon: "home",
-			disabled: "false",
+			disabled: false,
 			classNav: 1
 		}, {
 			navName: "导航五",//导航栏title
 			icon: "user",
-			disabled: "false",
+			disabled: false,
 			classNav: 1,
 			childrens: [{//一级子栏
 				navName: "分组一",

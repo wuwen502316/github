@@ -4,6 +4,7 @@
 
 let muneCreated = false;
 let muneList = document.querySelector(".navMenu");
+var asideAnimationData = [];
 
 const callback = function (mutations) {
 	mutations.forEach(function (mutation) {
@@ -19,7 +20,8 @@ let observe = new MutationObserver(callback);
 observe.observe(muneList, config)
 let data = {
 	muneCreated: muneCreated,
-	muneList: muneList
+	muneList: muneList,
+	asideAnimationData: asideAnimationData
 }
 
 let store = new Proxy(data, {
@@ -32,5 +34,4 @@ let store = new Proxy(data, {
 		return Reflect.get(target, key, receiver);
 	}
 })
-
 export default store

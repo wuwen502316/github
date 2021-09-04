@@ -5,6 +5,7 @@
 window.onload = function () {
 	const tools = window.tools; //全局变量引入
 	window.is_show_close = true;
+	const app = document.querySelector("#app");
 	// console.log(tools);
 	const handleCancel = document.querySelectorAll(".handle-cancel"); //关闭按钮
 	const dropdownTrigger = document.querySelector(".el-header-item.right.dropdown-trigger");//clothes DIV
@@ -16,38 +17,57 @@ window.onload = function () {
 	const dropdown = document.querySelector("ul[role='dropdown--menu']"); //dropdown(下拉菜单)的ul的li
 	const dropdowns = dropdown.querySelectorAll("li[role='dropdown--menuitem']"); //dropdown(下拉菜单)的ul的li
 	// const dropdownMenuitems = document.querySelectorAll(".dropdown--menuitem"); //dropdown下拉菜单的div
-
+	const animationsCallBackFunction = {
+		out: (dom) => {
+			dom.classList.add("aside-menu-fade-out");
+			dom.style = ""
+			dom.addEventListener("animationend", function () { //监听动画是否完成
+				dom.classList.remove("aside-menu-fade-out");
+				dom.style = ""
+				dom.removeEventListener("animationend", this);
+			}, false)
+		},
+		in: (dom, argus) => {
+			dom.classList.add('aside-menu-fade-in');
+			dom.addEventListener("animationend", function () {//监听动画是否完成
+				dom.style.display = !argus ? "block" : "none";
+				dom.classList.remove("aside-menu-fade-in");
+				dom.removeEventListener("animationend", this);
+			}, false)
+		},
+		_out(dom) {
+			return (dom) => {
+				this.out(dom)
+			}
+		},
+		_in(dom, argus) {
+			return (dom, argus) => {
+				this.in(dom, argus)
+			}
+		}
+	}
 	const animations = {//添加动画函数
-		menuItemFadeOut(dom, options, ...argus) {
+		menuItemFadeOut(dom, options, argus) {
 			tools.handleAnimation({
 				animationName: "menu-item-fade-out",
 				rule: `to{height:${options};opacity:1;}`,
 				ruleName: "to"
-			}).addAnimation(() => { //回调
-				dom.classList.add("aside-menu-fade-out");
-				dom.style = ""
-			})
-			dom.addEventListener("animationend", () => { //监听动画是否完成
-				dom.classList.remove("aside-menu-fade-out");
-				dom.style = ""
-			}, false)
+			}).addAnimation(animationsCallBackFunction.out(dom, argus))
 		},
-		menuItemFadeIn(dom, options, ...argus) {
+		menuItemFadeIn(dom, options, argus) {
 			tools.handleAnimation({
 				rule: `0%{height:${options};opacity:1;}`,
 				animationName: "menu-item-fade-in",
 				ruleName: "from"
-			}).addAnimation(() => {
-				dom.classList.add('aside-menu-fade-in');
-			})
-			dom.addEventListener("animationend", () => {//监听动画是否完成
-				dom.style.display = !argus[0] ? "block" : "none";
-				dom.classList.remove("aside-menu-fade-in");
-			}, false)
+			}).addAnimation(animationsCallBackFunction.in(dom, argus))
+		},
+		repalce(dom, options, cb, argus) {
+			tools.handleAnimation({
+				rule: options.rule,
+				animationName: options.animationName,
+				ruleName: options.ruleName
+			}).replaceAnimation(cb(dom, argus))
 		}
-	}
-	const computed = function () {
-		console(...arguments);
 	}
 	const eventOperations = { //事件
 		dropdownTriggerClick(e) { //dropdown下拉菜单点击事件
@@ -172,37 +192,114 @@ window.onload = function () {
 			})
 		}
 	}
-
-	(function aside() { //则边栏click事件
-		const submenuTitle = document.querySelectorAll(".el-submenu__title");
-		for (let i = 0; i < submenuTitle.length; i++) {
-			submenuTitle[i].onclick = function (e) {
-				e.stopPropagation();
-				let el = e.currentTarget.parentNode; //li 获取绑定click事件的dom节点(不同于e.target)
-				let flag = el.querySelector(".el-submenu__title").getAttribute("aria-expanded");
-				let menu_inline = el.querySelector(".el-menu.el-menu--inline");//li>div>ul
-				//当前节点下获取目标节点的属性
-				if (el.className.includes("el-submenu") && !el.className.includes("is-disabled") && !flag) {
-					//判断li的className是否符合要求,并且li>div没有"aria-expanded"属性
-					el.querySelector(".el-submenu__title").setAttribute("aria-expanded", true);
-					// li设置"aria-expanded"属性即li是展开状态
-					if (menu_inline) {
-						animations.menuItemFadeOut(menu_inline, "260px", flag);//调取animations有关的函数
-					}
-					let svg = el.querySelector("div .arrow-roll-begining"); //svg2D变换
-					tools.handleClass.replaceClass(svg, "arrow-roll-begining", "arrow-roll-clicked");
-					tools.handleClass.addClass(el, "is-opened el-submenu-transform"); //li添加className
-				} else if (flag) {
-					el.querySelector(".el-submenu__title").removeAttribute("aria-expanded");
-					//li折叠时移除"aria-expanded"属性即表示不是展开状态
-					let svg = el.querySelector("div .arrow-roll-clicked");
-					tools.handleClass.replaceClass(svg, "arrow-roll-clicked", "arrow-roll-begining");
-					tools.handleClass.removeClass(el, "is-opened el-submenu-transform arrow-roll-clicked");
-					if (menu_inline) {
-						animations.menuItemFadeIn(menu_inline, "260px", flag);
+	let Aside = function (options) {
+		for (const key in options) {
+			if (Object.hasOwnProperty.call(options, key)) {
+				this.key = options[key]
+			}
+		}
+		this.ischangedOut = false;
+		this.ischangedIn = false;
+		this.arrowchangeFunction = {
+			out(el) {
+				let svg = el.querySelector("div .arrow-roll-begining"); //svg2D变换
+				tools.handleClass.replaceClass(svg, "arrow-roll-begining", "arrow-roll-clicked");
+				tools.handleClass.addClass(el, "is-opened el-submenu-transform"); //li添加className
+			},
+			in(el) {
+				let svg = el.querySelector("div .arrow-roll-clicked");
+				tools.handleClass.replaceClass(svg, "arrow-roll-clicked", "arrow-roll-begining");
+				tools.handleClass.removeClass(el, "is-opened el-submenu-transform arrow-roll-clicked");
+			}
+		}
+		this.elSubmenu = document.querySelectorAll('.el-submenu');
+		this.arr = [];
+		this.submenuTitle = document.querySelectorAll(".el-submenu__title");
+		this.init();
+	}
+	Aside.prototype = {
+		init() {
+			this.getAsidePerItemHeight();
+			this.bindClickEvent();
+		},
+		getAsidePerItemHeight() {
+			for (let index = 0; index < this.elSubmenu.length; index++) {
+				const element = this.elSubmenu[index].querySelector('.el-menu.el-menu--inline');
+				if (element) {
+					element.style.display = "block";
+					this.arr[index] = (window.getComputedStyle(element).height);
+					element.style.display = "none";
+				} else {
+					this.arr[index] = ("0px")
+				}
+			}
+			console.log(this.arr)
+		},
+		bindClickEvent() {
+			for (let i = 0; i < this.submenuTitle.length; i++) {
+				this.submenuTitle[i].onclick = (e) => {
+					e.stopPropagation();
+					let el = e.currentTarget.parentNode; //li 获取绑定click事件的dom节点(不同于e.target)
+					// console.log(el.querySelectorAll(".arrow.class-menu-arrow"));
+					// if (!el.getElementsByTagName("UL").length) {
+					// 	return
+					// }
+					let flag = el.querySelector(".el-submenu__title").getAttribute("aria-expanded");
+					let menu_inline = el.querySelector(".el-menu.el-menu--inline");//li>div>ul
+					//当前节点下获取目标节点的属性
+					if (!flag && !this.ischangedOut) {
+						//判断li的className是否符合要求,并且li>div没有"aria-expanded"属性
+						el.querySelector(".el-submenu__title").setAttribute("aria-expanded", true);
+						// li设置"aria-expanded"属性即li是展开状态
+						if (menu_inline) {
+							animations.menuItemFadeOut(menu_inline, this.arr[i], flag);//调取animations有关的函数
+							this.ischangedOut = true;
+						}
+					} else if (flag && !this.ischangedIn) {
+						el.querySelector(".el-submenu__title").removeAttribute("aria-expanded");
+						//li折叠时移除"aria-expanded"属性即表示不是展开状态
+						this.arrowchangeFunction.in(el);
+						if (menu_inline) {
+							animations.menuItemFadeIn(menu_inline, this.arr[i], flag);
+							this.ischangedIn = true;
+						}
+					} else if (!flag && this.ischangedOut) {
+						el.querySelector(".el-submenu__title").setAttribute("aria-expanded", true);
+						animations.repalce(menu_inline, {
+							rule: `100%{height:${this.arr[i]};opacity:1`,
+							// rule: `100%{height:${this.arr[i]}`,
+							ruleName: "100%",
+							animationName: "menu-item-fade-out"
+						}, animationsCallBackFunction._out(menu_inline), flag)
+						this.arrowchangeFunction.out(el);
+					} else if (flag && this.ischangedIn) {
+						el.querySelector(".el-submenu__title").removeAttribute("aria-expanded");
+						animations.repalce(menu_inline, {
+							rule: `0%{height:${this.arr[i]};opacity:1`,
+							// rule: `0%{height:${this.arr[i]}`,
+							ruleName: "0%",
+							animationName: "menu-item-fade-in"
+						}, animationsCallBackFunction._in(menu_inline), flag)
+						this.arrowchangeFunction.in(el);
 					}
 				}
 			}
 		}
-	}(window))
+	}
+	let asideFun = new Aside();
+
+	let observerDomTree = (app) => {//监听dom树的变化
+		this.config = {
+			// attributes: true,//属性
+			childList: true,//子元素
+			subtree: true
+		}
+		this.callBack = (mutationsList, observer) => {
+			asideFun.getAsidePerItemHeight()
+			console.log(mutationsList, "line-293")
+		}
+		const observer = new MutationObserver(this.callBack);
+		observer.observe(app, this.config)
+	}
+	observerDomTree(app)
 }

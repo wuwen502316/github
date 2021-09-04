@@ -40,14 +40,12 @@ HandleAnimation.prototype = {
 		}
 	},
 	addAnimation(callBack) {
-		this.pbulicAnimation((data) => {
+		this.pbulicAnimation((data) => {//data=rulesitem[j]
 			if (this.rule) {
 				if (!this.flag) {
 					data.appendRule(this.rule);
-					// console.log(1)
 				}
 				if (callBack) {
-					// console.log(2)
 					callBack(data);
 				}
 			}
@@ -60,7 +58,7 @@ HandleAnimation.prototype = {
 				if (this.flag) {
 					data.deleteRule(this.ruleName);
 				}
-				// console.log(data,this.deleteKeyFrame)
+				// console.log(data, this.deleteKeyFrame)
 				if (callBack) {
 					callBack(data);
 				}
@@ -69,8 +67,8 @@ HandleAnimation.prototype = {
 		return true;
 	},
 	replaceAnimation(options) {
-		this.removeAnimation(() => {
-			this.addAnimation()
+		this.removeAnimation((data) => {
+			this.addAnimation(options)
 		})
 	}
 }
