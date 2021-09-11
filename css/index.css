@@ -3,6 +3,13 @@ body {
 	width: 100%;
 	height: 100%;
 }
+body {
+	font-size: 16px;
+}
+:root {
+	--menu-width: 200px;
+	--menu-dwidth: 17px;
+}
 
 /* 固定高度header or footer */
 .flexd-height {
@@ -91,7 +98,7 @@ body {
 		opacity: 0;
 	}
 }
-
+/* 初始值 */
 .aside.el-aside.light .el-submenu {
 	color: #001529;
 }
@@ -108,46 +115,38 @@ body {
 	fill: rgb(199, 196, 196);
 }
 /* hover事件 */
-.aside.el-aside.light li:hover svg path {
+/* .aside.el-aside li:hover .el-submenu__title > svg path, */
+.aside.el-aside.light li:hover .el-submenu__title svg path,
+.aside.el-aside.light li:hover .el-menu-item-group svg path {
 	fill: #32a6e3;
 }
 
-.aside.el-aside.light li:hover .el-submenu__title {
-	color: #32a6e3;
-}
-
-.aside li:hover .el-submenu__title > i svg path {
-	fill: #32a6e3;
-}
-
+.aside.el-aside.light li:hover .el-submenu__title,
 .aside li:hover .el-submenu__title {
 	color: #32a6e3;
 }
 
-.aside.dark li:hover .el-submenu__title > i svg path {
+.aside.el-aside.dark li:hover .el-submenu__title > svg path {
 	fill: #ffffff;
 }
 
-/* .aside.dark .el-submenu__title:hover, */
-.aside.dark li:hover .el-submenu__title {
+.aside.el-aside.dark li:hover .el-submenu__title,
+.aside.el-aside.dark li:hover {
 	color: #ffffff;
 	background-color: #001529;
 }
 
-.aside.dark li:hover {
-	background-color: #001529;
-	color: #ffffff;
-}
 /*  */
 .aside.el-aside .hidden_scroll {
 	height: 100%;
 	min-width: 200px;
+	max-width: 200px;
 	overflow: hidden;
 }
 
 .aside.el-aside .hidden_scroll .navMenu {
 	height: 100%;
-	width: 217px;
+	width: calc(var(--menu-width) + var(--menu-dwidth));
 	overflow-y: scroll;
 	overflow-x: hidden;
 }
@@ -164,7 +163,7 @@ body {
 
 /* el-menu-item-group */
 /* 仅google支持的滚动条自定义 */
-.aside > div::-webkit-scrollbar {
+/* .aside > div::-webkit-scrollbar {
 	width: 6px;
 	background-color: transparent;
 }
@@ -184,7 +183,7 @@ body {
 .el-header.flexd-height {
 	background-color: rgb(250, 250, 250);
 	box-shadow: rgba(0, 21, 41, 0.08) 0px 1px 4px 0px;
-}
+} */
 
 /* horizontal  Vertical 水平垂直居中*/
 .is-center--flex {
@@ -210,31 +209,6 @@ body {
 	transition: top 0.1s;
 }
 
-/* .el-menu-transform {
-	transition: all .3s;
-} */
-/* .el-menu-item:focus,
-.el-menu-item:hover {
-	outline: none;
-	background-color: #ecf5ff
-} */
-
-/* 点击侧边栏时的li高度动画过渡 */
-/* .el-submenu{
-	height: 56px;
-}
-.el-submenu-transform {
-	transition: all 10s;
-} */
-
-/* arrow箭头的初始位置及角度设置 */
-/* .arrow {
-	position: absolute;
-	left: 160px;
-	top: 0;
-	bottom: 0;
-	margin: auto;
-} */
 .arrow {
 	position: absolute;
 	left: 0;
@@ -354,4 +328,103 @@ body {
 /* main */
 .el-main.is-center-parent {
 	user-select: none;
+}
+/* 登录部分 */
+.left.loginBox {
+	border-top: 1px solid #001529;
+	width: 100%;
+	height: 150px;
+	/* background-color: #4368fa; */
+	margin-top: 10px;
+}
+
+.left.loginBox .userName,
+.left.loginBox .passWord {
+	margin-top: 25px;
+}
+
+.left.loginBox .userName input,
+.left.loginBox .passWord input {
+	font-size: 16px;
+	outline: none;
+	border: 0;
+	background-color: transparent;
+	border-bottom: 1px solid #001529;
+}
+
+.left.loginBox .userName input:focus,
+.left.loginBox .passWord input:focus {
+	border-bottom-color: #4368fa;
+	color: #4368fa;
+}
+.left.loginBox .loginTittle {
+	height: 0px;
+}
+
+.left.loginBox div span[class="animation--up"] {
+	animation: animation-login--up 0.3s cubic-bezier(0.72, 1.95, 0.36, 0.62);
+	position: relative;
+	/* top: 0; */
+	font-size: 16px;
+	font-family: "微软雅黑";
+	font-weight: 600;
+	color: #4368fa;
+}
+
+.left.loginBox div span[class="animation--down"] {
+	animation: animation-login--down 0.3s;
+	position: relative;
+	/* top: 0; */
+	font-size: 16px;
+	font-family: "微软雅黑";
+	font-weight: normal;
+	color: #666;
+}
+
+@keyframes animation-login--up {
+	0% {
+		top: 0;
+	}
+	100% {
+		top: -20px;
+	}
+}
+@keyframes animation-login--down {
+	0% {
+		top: -20px;
+	}
+	100% {
+		top: 0;
+	}
+}
+
+.left.loginBox .userName span:first-child,
+.left.loginBox .passWord span:first-child {
+	padding-left: 2px;
+}
+/* placeholder的字体颜色及兼容写法 */
+input::-webkit-input-placeholder,
+textarea::-webkit-input-placeholder {
+	color: #666;
+	font-size: 16px;
+	/* font-family: "微软雅黑";
+	font-weight: 600; */
+}
+
+input:-moz-placeholder,
+textarea:-moz-placeholder {
+	color: #666;
+	font-size: 16px;
+}
+
+input::-moz-placeholder,
+textarea::-moz-placeholder {
+	color: #666;
+	font-size: 16px;
+}
+
+input:-ms-input-placeholder,
+textarea:-ms-input-placeholder {
+	color: #666;
+	font-size: 16px;
 }

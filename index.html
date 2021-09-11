@@ -15,7 +15,7 @@
 	<noscript>您的浏览器不支持script,请更换浏览器</noscript>
 	<div id="app">
 		<div class="el-container">
-			<aside class="el-aside aside dark">
+			<aside class="el-aside aside light">
 				<div class="hidden_scroll">
 					<div class="navMenu"></div>
 				</div>
@@ -78,6 +78,20 @@
 							<span>dialog</span>
 						</button>
 					</div>
+					<div class="login">
+						<div class="left loginBox">
+							<div class="userName" role="login">
+								<!-- userName: -->
+								<div class="loginTittle" style="position: relative;"></div>
+								<input type="text" name="userName" id="userName" placeholder="userName">
+							</div>
+							<div class="passWord" role="login">
+								<!-- passWord: -->
+								<div class="loginTittle" style="position: relative;"></div>
+								<input type="password" name="passWord" id="password" placeholder="passWord">
+							</div>
+						</div>
+					</div>
 				</main>
 				<div class="el-footer flexd-height is-center--flex">
 					<span class="is-center-child">footer</span>
@@ -92,3 +106,94 @@
 <!-- <script type="module" src="./js/module/api.js"></script> -->
 <script src="./js/index.js" type="text/javascript" charset="utf-8"></script>
 <script src="./js/route.js" type="text/javascript" charset="utf-8"></script>
+<script>
+	/*
+	* @author https://github.com/wuwen502316/selfUI
+
+	* @description: loginAnimationUp | loginAnimationDown 运动函数(dom,arr,className)
+	* @param {*dom 元素节点, *arr即input的placeholder的数组, *className 添加class}
+	* @return {*nothing}
+	*
+	* @description:只在第一次点击时生成span，之后不在用js创建span标签
+	* @param {flag}
+	*/
+
+
+
+	const login = document.getElementsByClassName("login")[0];
+	const userName = document.querySelector("input[name='userName']");
+	const passWord = document.querySelector("input[name='passWord']");
+	const userNameArr = userName.placeholder.split("");
+	const passWordArr = passWord.placeholder.split("");
+	const userNameP = userName.placeholder;
+	const passWordP = passWord.placeholder;
+	//逐字函数
+	function loginAnimationUp(dom, arr, _className) {
+		const divBox = dom.parentNode.querySelector("div");
+		const flag = divBox.getAttribute("isCreated");
+		let i = 0;
+		if (!flag) {
+			let html = "";
+			dom.placeholder = "";
+			arr.forEach((word) => {
+				html += `<span>${word}</span>`
+			})
+			divBox.innerHTML = html;
+			divBox.setAttribute("isCreated", true)
+		}
+		const perSpan = divBox.querySelectorAll("span");
+		const len = perSpan.length;
+		const timer = setInterval(() => {
+			if (i < len) {
+				if (perSpan[i].className.includes("animation--down")) {
+					perSpan[i].classList.remove("animation--down");
+				}
+				perSpan[i].classList = _className;
+				perSpan[i].style.top = "-20px";
+				i += 1;
+			} else {
+				clearInterval(timer);
+				return
+			}
+		}, 50)
+	}
+	function loginAnimationDown(dom, arr, _className) {//input.value.trim()==""时执行
+		let i = 0;
+		const divBox = dom.parentNode.querySelector("div");
+		const perSpan = divBox.querySelectorAll("span");
+		const timer = setInterval(() => {
+			if (i < perSpan.length) {
+				if (perSpan[i].className.includes("animation--up")) {
+					perSpan[i].classList.remove("animation--up");
+				}
+				perSpan[i].classList = _className;
+				perSpan[i].style.top = "0px";
+				i += 1;
+			} else {
+				clearInterval(timer);
+				return
+			}
+		}, 50)
+	}
+	userName.onfocus = function () {
+		loginAnimationUp(userName, userNameArr, "animation--up")
+	};
+	passWord.onfocus = function () {
+		loginAnimationUp(passWord, passWordArr, "animation--up")
+	}
+	userName.onblur = function () {
+		const str = userName.value.trim()
+		if (str === "") {
+			userName.value = "";
+			loginAnimationDown(userName, userNameArr, "animation--down")
+		}
+	}
+	passWord.onblur = function () {
+		const str = passWord.value.trim()
+		if (str === "") {
+			passWord.value = "";
+			loginAnimationDown(passWord, passWordArr, "animation--down")
+		}
+	}
+
+</script>

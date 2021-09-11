@@ -151,6 +151,141 @@ const asideData = {
 					classNav: 3,
 				}]
 			}]
+		}, {
+			navName: "导航六",//导航栏title
+			icon: "mima_1",
+			disabled: false,
+			classNav: 1,
+			childrens: [{//一级子栏
+				navName: "分组一",
+				navNameShow: true,
+				classNav: 2,
+				childrens: [{
+					navName: "选项1",
+					classNav: 3,
+				}, {
+					navName: "选项2",
+					classNav: 3,
+				}, {
+					navName: "选项3",
+					classNav: 3,
+				}]
+			}, {
+				navName: "分组二",
+				classNav: 2,
+				childrens: [{
+					navName: "选项1",
+					classNav: 3,
+				}]
+			}]
+		}, {
+			navName: "导航七",//导航栏title
+			icon: "star",
+			disabled: false,
+			classNav: 1,
+			childrens: [{//一级子栏
+				navName: "分组一",
+				navNameShow: true,
+				classNav: 2,
+				childrens: [{
+					navName: "选项1",
+					classNav: 3,
+				}, {
+					navName: "选项2",
+					classNav: 3,
+				}, {
+					navName: "选项3",
+					classNav: 3,
+				}]
+			}, {
+				navName: "分组二",
+				classNav: 2,
+				childrens: [{
+					navName: "选项1",
+					classNav: 3,
+				}]
+			}]
+		}, {
+			navName: "导航八",//导航栏title
+			icon: "collectionTag",
+			disabled: false,
+			classNav: 1,
+			childrens: [{//一级子栏
+				navName: "分组一",
+				navNameShow: true,
+				classNav: 2,
+				childrens: [{
+					navName: "选项1",
+					classNav: 3,
+				}, {
+					navName: "选项2",
+					classNav: 3,
+				}, {
+					navName: "选项3",
+					classNav: 3,
+				}]
+			}, {
+				navName: "分组二",
+				classNav: 2,
+				childrens: [{
+					navName: "选项1",
+					classNav: 3,
+				}]
+			}]
+		}, {
+			navName: "导航九",//导航栏title
+			icon: "cloth",
+			disabled: false,
+			classNav: 1,
+			childrens: [{//一级子栏
+				navName: "分组一",
+				navNameShow: true,
+				classNav: 2,
+				childrens: [{
+					navName: "选项1",
+					classNav: 3,
+				}, {
+					navName: "选项2",
+					classNav: 3,
+				}, {
+					navName: "选项3",
+					classNav: 3,
+				}]
+			}, {
+				navName: "分组二",
+				classNav: 2,
+				childrens: [{
+					navName: "选项1",
+					classNav: 3,
+				}]
+			}]
+		}, {
+			navName: "导航十",//导航栏title
+			icon: "info",
+			disabled: false,
+			classNav: 1,
+			childrens: [{//一级子栏
+				navName: "分组一",
+				navNameShow: true,
+				classNav: 2,
+				childrens: [{
+					navName: "选项1",
+					classNav: 3,
+				}, {
+					navName: "选项2",
+					classNav: 3,
+				}, {
+					navName: "选项3",
+					classNav: 3,
+				}]
+			}, {
+				navName: "分组二",
+				classNav: 2,
+				childrens: [{
+					navName: "选项1",
+					classNav: 3,
+				}]
+			}]
 		}]
 	},
 	totail: 6
