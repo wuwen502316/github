@@ -198,7 +198,7 @@
 		}
 	}
 	~(function platform(){
-		const platForm = document.querySelector(".platForm");
+		const _platForm = document.querySelector(".platForm");
 		var isMobile = {
 		    Android: function () {
 			return navigator.userAgent.match(/Android/i) ? true : false;
@@ -235,6 +235,6 @@
 		}else{ 
 		    browser_name+=',info:'+u_agent; 
 		} 
-		platForm.innerHTML = `您是在${platForm}的${browser_name}上浏览页面`
+		_platForm.innerHTML = `您是在${platForm}的${browser_name}上浏览页面`
 	})()
 </script>
