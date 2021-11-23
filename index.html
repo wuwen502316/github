@@ -190,7 +190,7 @@
 		}
 	}
 	passWord.onblur = function () {
-		const platForm = document.querySelector(".platForm");
+		
 		const str = passWord.value.trim()
 		if (str === "") {
 			passWord.value = "";
@@ -198,6 +198,7 @@
 		}
 	}
 	~(function platform(){
+		const platForm = document.querySelector(".platForm");
 		var isMobile = {
 		    Android: function () {
 			return navigator.userAgent.match(/Android/i) ? true : false;
