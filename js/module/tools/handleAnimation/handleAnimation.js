@@ -22,7 +22,7 @@ function HandleAnimation(options) {
 	this.myRules = document.styleSheets;
 	this.flag = false;//默认不存在该条rule即cssKeyFrams.findRule的返回值为null(res)
 	if(!(this.ruleName && this.animationName)){
-		console.err(`参数缺失`);
+		console.error(`参数缺失`);
 		return false;
 	}
 }
@@ -56,7 +56,7 @@ HandleAnimation.prototype = {
 					callBack(data);
 				}
 			}else{
-				console.err(`参数缺失`);
+				console.error(`参数缺失`);
 				return false;
 			}
 		})
@@ -74,7 +74,7 @@ HandleAnimation.prototype = {
 				}
 			})
 		}else{
-			console.err(`参数缺失`);
+			console.error(`参数缺失`);
 			return false;
 		}
 		return true;
