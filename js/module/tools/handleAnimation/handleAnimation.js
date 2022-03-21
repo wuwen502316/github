@@ -9,6 +9,9 @@
 let cssBaseUrl = window.location.origin;
 
 function HandleAnimation(options) {
+	this.animationName = null;
+	this.rule = null;
+	this.ruleName = null;
 	for (let k in options) {
 		if (!options.hasOwnProperty(k)) {
 			break;
@@ -18,6 +21,10 @@ function HandleAnimation(options) {
 	this.url = null;
 	this.myRules = document.styleSheets;
 	this.flag = false;//默认不存在该条rule即cssKeyFrams.findRule的返回值为null(res)
+	if(!(this.ruleName && this.animationName)){
+		console.err(`参数缺失`);
+		return false;
+	}
 }
 
 HandleAnimation.prototype = {
@@ -48,6 +55,9 @@ HandleAnimation.prototype = {
 				if (callBack) {
 					callBack(data);
 				}
+			}else{
+				console.err(`参数缺失`);
+				return false;
 			}
 		})
 		return true;
@@ -63,6 +73,9 @@ HandleAnimation.prototype = {
 					callBack(data);
 				}
 			})
+		}else{
+			console.err(`参数缺失`);
+			return false;
 		}
 		return true;
 	},
